@@ -17,7 +17,14 @@ const Header = () => {
     <header className="bg-neutral">
       <nav className="mx-auto container py-5 flex justify-between items-center flex-col md:flex-row gap-y-6">
         <div className="flex gap-5">
-          <Image alt="logo" src={logo} priority width={150} />
+          <Image
+            alt="logo"
+            src={logo}
+            priority
+            width={150}
+            height={150}
+            style={{ height: "auto", width: "auto" }}
+          />
 
           <Select>
             <SelectTrigger className="w-[180px]">

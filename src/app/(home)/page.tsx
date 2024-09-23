@@ -2,6 +2,52 @@ import { Button } from "@/components/ui/button";
 import pizza from "../../../public/pizza.jpg";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ProductCard, { Product } from "./components/ProductCard";
+
+const products: Product[] = [
+  {
+    id: "1",
+    name: "Pizza",
+    description: "Delicious Pizza",
+    image: "/pizza.jpg",
+    price: 10,
+  },
+  {
+    id: "2",
+    name: "Pizza",
+    description: "Delicious Pizza",
+    image: "/pizza.jpg",
+    price: 10,
+  },
+  {
+    id: "3",
+    name: "Pizza",
+    description: "Delicious Pizza",
+    image: "/pizza.jpg",
+    price: 10,
+  },
+  {
+    id: "4",
+    name: "Pizza",
+    description: "Delicious Pizza",
+    image: "/pizza.jpg",
+    price: 10,
+  },
+  {
+    id: "5",
+    name: "Pizza",
+    description: "Delicious Pizza",
+    image: "/pizza.jpg",
+    price: 10,
+  },
+  {
+    id: "6",
+    name: "Pizza",
+    description: "Delicious Pizza",
+    image: "/pizza.jpg",
+    price: 10,
+  },
+];
 
 export default function Home() {
   return (
@@ -27,9 +73,9 @@ export default function Home() {
       </section>
 
       <section>
-        <div className=" container mx-auto py-12">
-          <Tabs defaultValue="pizza" className="w-[400px]">
-            <TabsList>
+        <div className=" container mx-auto py-10">
+          <Tabs defaultValue="pizza">
+            <TabsList className="mb-8  border-primary border-2">
               <TabsTrigger value="pizza" className="text-md">
                 Pizza
               </TabsTrigger>
@@ -37,8 +83,20 @@ export default function Home() {
                 Berverages
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="pizza">Pizza list.</TabsContent>
-            <TabsContent value="berverages">Braverages List.</TabsContent>
+            <TabsContent value="pizza">
+              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
+                {products.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            </TabsContent>
+            <TabsContent value="berverages">
+              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
+                {products.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            </TabsContent>
           </Tabs>
         </div>
       </section>
