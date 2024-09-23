@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import pizza from "../../../public/pizza.jpg";
 import Image from "next/image";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Home() {
   return (
@@ -22,6 +23,23 @@ export default function Home() {
           <div className="col-span-1 lg:col-span-6 order-1 lg:order-2 flex justify-center pl-4">
             <Image src={pizza} alt="Delicious pizza" width={600} />
           </div>
+        </div>
+      </section>
+
+      <section>
+        <div className=" container mx-auto py-12">
+          <Tabs defaultValue="pizza" className="w-[400px]">
+            <TabsList>
+              <TabsTrigger value="pizza" className="text-md">
+                Pizza
+              </TabsTrigger>
+              <TabsTrigger value="berverages" className="text-md">
+                Berverages
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="pizza">Pizza list.</TabsContent>
+            <TabsContent value="berverages">Braverages List.</TabsContent>
+          </Tabs>
         </div>
       </section>
     </>
