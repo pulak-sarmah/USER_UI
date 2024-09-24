@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/dialog";
 import Image from "next/image";
 import { ProductCardProps } from "./ProductCard";
+import { Button } from "@/components/ui/button";
+import { ShoppingCart } from "lucide-react";
 
 const CardDialog = ({ product }: ProductCardProps) => {
   return (
@@ -34,7 +36,7 @@ const CardDialog = ({ product }: ProductCardProps) => {
           "
             />
           </div>
-          <div className="w-2/4 p-8">
+          <div className="w-3/4 p-8">
             <h3 className="text-xl font-bold">{product.name}</h3>
             <p className="mt-1 ">{product.description}</p>
 
@@ -129,6 +131,14 @@ const CardDialog = ({ product }: ProductCardProps) => {
               </RadioGroup>
             </div>
             <ToppingList />
+
+            <div className="flex items-center justify-between mt-8">
+              <span>₹ 400</span>
+              <Button>
+                <ShoppingCart />
+                <span>Add to Cart</span>
+              </Button>
+            </div>
           </div>
         </div>
       </DialogContent>

@@ -47,7 +47,7 @@ const ToppingList = () => {
     <section className="mt-6">
       <h4 className="text-sm mb-2">Extra toppings</h4>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-12 gap-14">
         {toppings.map((topping) => {
           return (
             <ToppingCard

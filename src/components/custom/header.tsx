@@ -11,8 +11,14 @@ import {
 import Link from "next/link";
 import { Phone, ShoppingBasket } from "lucide-react";
 import { Button } from "../ui/button";
+import { Tenant } from "@/lib/types";
 
-const Header = () => {
+const Header = async () => {
+  const tenantsResponse = await fetch(
+    `${process.env.BACKEND_URL}/api/auth/tenants?perPage=100`
+  );
+  const restaurant: Tenant[] = await tenantsResponse.json();
+
   return (
     <header className="bg-neutral">
       <nav className="mx-auto container py-5 flex justify-between items-center flex-col md:flex-row gap-y-6">
@@ -31,9 +37,11 @@ const Header = () => {
               <SelectValue placeholder="Select Restaurent" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="cheesy-delight">Cheesy Delight</SelectItem>
-              <SelectItem value="pizza-menia">Pizza Menia</SelectItem>
-              <SelectItem value="lazziz-origin">Lazziz Origin</SelectItem>
+              {restaurant.map((tenant: Tenant) => (
+                <SelectItem key={tenant.id} value={tenant.id}>
+                  {tenant.name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>

@@ -31,7 +31,7 @@ const ToppingCard = ({
     <Button
       variant={"outline"}
       className={cn(
-        "flex flex-col h-28 w-24 relative ",
+        "flex flex-col h-28 w-24 relative col-span-2 ",
         isCurrentSelectd ? "border-primary border-2" : ""
       )}
       onClick={() => handleCheckBoxCheck(topping)}
