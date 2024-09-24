@@ -15,7 +15,12 @@ import { Tenant } from "@/lib/types";
 
 const Header = async () => {
   const tenantsResponse = await fetch(
-    `${process.env.BACKEND_URL}/api/auth/tenants?perPage=100`
+    `${process.env.BACKEND_URL}/api/auth/tenants?perPage=100`,
+    {
+      next: {
+        revalidate: 3600,
+      },
+    }
   );
   const restaurant: Tenant[] = await tenantsResponse.json();
 

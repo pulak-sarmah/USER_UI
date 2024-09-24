@@ -3,6 +3,7 @@ import pizza from "../../../public/pizza.jpg";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProductCard, { Product } from "./components/ProductCard";
+import { Category } from "@/lib/types";
 
 const products: Product[] = [
   {
@@ -49,7 +50,22 @@ const products: Product[] = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const categoryResponse = await fetch(
+    `${process.env.BACKEND_URL}/api/catalog/categories`,
+    {
+      next: {
+        revalidate: 3600,
+      },
+    }
+  );
+
+  if (!categoryResponse.ok) {
+    throw new Error("Failed to fetch categories");
+  }
+
+  const categories: Category[] = await categoryResponse.json();
+
   return (
     <>
       <section className="bg-neutral py-12 lg:py-24">
@@ -76,12 +92,15 @@ export default function Home() {
         <div className=" container mx-auto py-10">
           <Tabs defaultValue="pizza">
             <TabsList className="mb-8  border-primary border-2">
-              <TabsTrigger value="pizza" className="text-md">
-                Pizza
-              </TabsTrigger>
-              <TabsTrigger value="berverages" className="text-md">
-                Berverages
-              </TabsTrigger>
+              {categories.map((category) => (
+                <TabsTrigger
+                  key={category._id}
+                  value={category.name.toLowerCase()}
+                  className="text-md"
+                >
+                  {category.name}
+                </TabsTrigger>
+              ))}
             </TabsList>
             <TabsContent value="pizza">
               <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -90,7 +109,7 @@ export default function Home() {
                 ))}
               </div>
             </TabsContent>
-            <TabsContent value="berverages">
+            <TabsContent value="beverages">
               <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
                 {products.map((product) => (
                   <ProductCard key={product.id} product={product} />
