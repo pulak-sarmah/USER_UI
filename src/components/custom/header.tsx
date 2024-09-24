@@ -19,6 +19,10 @@ const Header = async () => {
   );
   const restaurant: Tenant[] = await tenantsResponse.json();
 
+  if (!tenantsResponse.ok) {
+    throw new Error("Failed to fetch tenants");
+  }
+
   return (
     <header className="bg-neutral">
       <nav className="mx-auto container py-5 flex justify-between items-center flex-col md:flex-row gap-y-6">
