@@ -7,14 +7,7 @@ import {
 import React from "react";
 import Image from "next/image";
 import Dialog from "./CardDialog";
-
-export type Product = {
-  id: string;
-  name: string;
-  description: string;
-  image: string;
-  price: number;
-};
+import { Product } from "@/lib/types";
 
 export type ProductCardProps = {
   product: Product;
@@ -40,7 +33,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <CardFooter className="flex justify-between items-center p-4">
         <p className="text-base">
           <span>From </span>
-          <span className="font-bold">₹{product.price}</span>
+          <span className="font-bold">₹{}</span>
         </p>
         <Dialog product={product} />
       </CardFooter>

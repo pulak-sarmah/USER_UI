@@ -2,55 +2,11 @@ import { Button } from "@/components/ui/button";
 import pizza from "../../../public/pizza.jpg";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ProductCard, { Product } from "./components/ProductCard";
 import { Category } from "@/lib/types";
-
-const products: Product[] = [
-  {
-    id: "1",
-    name: "Pizza",
-    description: "Delicious Pizza",
-    image: "/pizza.jpg",
-    price: 10,
-  },
-  {
-    id: "2",
-    name: "Pizza",
-    description: "Delicious Pizza",
-    image: "/pizza.jpg",
-    price: 10,
-  },
-  {
-    id: "3",
-    name: "Pizza",
-    description: "Delicious Pizza",
-    image: "/pizza.jpg",
-    price: 10,
-  },
-  {
-    id: "4",
-    name: "Pizza",
-    description: "Delicious Pizza",
-    image: "/pizza.jpg",
-    price: 10,
-  },
-  {
-    id: "5",
-    name: "Pizza",
-    description: "Delicious Pizza",
-    image: "/pizza.jpg",
-    price: 10,
-  },
-  {
-    id: "6",
-    name: "Pizza",
-    description: "Delicious Pizza",
-    image: "/pizza.jpg",
-    price: 10,
-  },
-];
+import Pagination from "./components/Pagination";
 
 export default async function Home() {
+  // Fetch categories only (no need to fetch products here)
   const categoryResponse = await fetch(
     `${process.env.BACKEND_URL}/api/catalog/categories`,
     {
@@ -89,33 +45,28 @@ export default async function Home() {
       </section>
 
       <section>
-        <div className=" container mx-auto py-10">
+        <div className="container mx-auto py-10">
           <Tabs defaultValue="pizza">
-            <TabsList className="mb-8  border-primary border-2">
+            <TabsList className="mb-8 border-primary border-2">
               {categories.map((category) => (
                 <TabsTrigger
                   key={category._id}
-                  value={category.name.toLowerCase()}
+                  value={category.name.toLocaleLowerCase()}
                   className="text-md"
                 >
                   {category.name}
                 </TabsTrigger>
               ))}
             </TabsList>
-            <TabsContent value="pizza">
-              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
-                {products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            </TabsContent>
-            <TabsContent value="beverages">
-              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
-                {products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            </TabsContent>
+            {categories.map((category) => (
+              <TabsContent
+                key={category._id}
+                value={category.name.toLocaleLowerCase()}
+              >
+                {/* Use Pagination component to fetch and display products */}
+                <Pagination categoryId={category._id} />
+              </TabsContent>
+            ))}
           </Tabs>
         </div>
       </section>
