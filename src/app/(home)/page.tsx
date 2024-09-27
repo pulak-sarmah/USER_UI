@@ -6,7 +6,6 @@ import { Category } from "@/lib/types";
 import Pagination from "./components/Pagination";
 
 export default async function Home() {
-  // Fetch categories only (no need to fetch products here)
   const categoryResponse = await fetch(
     `${process.env.BACKEND_URL}/api/catalog/categories`,
     {
@@ -63,7 +62,6 @@ export default async function Home() {
                 key={category._id}
                 value={category.name.toLocaleLowerCase()}
               >
-                {/* Use Pagination component to fetch and display products */}
                 <Pagination categoryId={category._id} />
               </TabsContent>
             ))}

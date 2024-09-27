@@ -40,96 +40,38 @@ const CardDialog = ({ product }: ProductCardProps) => {
             <h3 className="text-xl font-bold">{product.name}</h3>
             <p className="mt-1 ">{product.description}</p>
 
-            <div>
-              <h4 className="text-sm mt-6">Choose the size</h4>
-              <RadioGroup
-                defaultValue="card"
-                className="grid grid-cols-3 gap-4 mt-2"
-              >
-                <div>
-                  <RadioGroupItem
-                    value="small"
-                    id="small"
-                    className="peer sr-only"
-                    aria-label="Small"
-                  />
-                  <Label
-                    htmlFor="small"
-                    className="flex flex-col items-center justify-between rounded-md border-2  bg-neutral p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                  >
-                    Small
-                  </Label>
-                </div>
-
-                <div>
-                  <RadioGroupItem
-                    value="medium"
-                    id="medium"
-                    className="peer sr-only"
-                    aria-label="Medium"
-                  />
-                  <Label
-                    htmlFor="medium"
-                    className="flex flex-col items-center justify-between rounded-md border-2 bg-neutral p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                  >
-                    Medium
-                  </Label>
-                </div>
-
-                <div>
-                  <RadioGroupItem
-                    value="large"
-                    id="large"
-                    className="peer sr-only"
-                    aria-label="Large"
-                  />
-                  <Label
-                    htmlFor="large"
-                    className="flex flex-col items-center    justify-between rounded-md border-2  bg-neutral p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                  >
-                    Large
-                  </Label>
-                </div>
-              </RadioGroup>
-            </div>
-
-            <div>
-              <h4 className="text-sm mt-6">Choose the crust</h4>
-              <RadioGroup
-                defaultValue="card"
-                className="grid grid-cols-3 gap-4 mt-2"
-              >
-                <div>
-                  <RadioGroupItem
-                    value="thin"
-                    id="thin"
-                    className="peer sr-only"
-                    aria-label="Thin"
-                  />
-                  <Label
-                    htmlFor="thin"
-                    className="flex flex-col items-center justify-between rounded-md border-2  bg-neutral p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                  >
-                    Small
-                  </Label>
-                </div>
-
-                <div>
-                  <RadioGroupItem
-                    value="thick"
-                    id="thick"
-                    className="peer sr-only"
-                    aria-label="Thick"
-                  />
-                  <Label
-                    htmlFor="thick"
-                    className="flex flex-col items-center justify-between rounded-md border-2 bg-neutral p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                  >
-                    Medium
-                  </Label>
-                </div>
-              </RadioGroup>
-            </div>
+            {Object.entries(product.category.priceConfiguration).map(
+              ([key, value]) => {
+                return (
+                  <div key={key}>
+                    <h4 className="text-sm mt-6">Choose the {key}</h4>
+                    <RadioGroup
+                      defaultValue={value.availableOptions[0].toLocaleLowerCase()}
+                      className="grid grid-cols-3 gap-4 mt-2"
+                    >
+                      {value.availableOptions.map((option) => {
+                        return (
+                          <div key={option}>
+                            <RadioGroupItem
+                              value={option.toLocaleLowerCase()}
+                              id={option.toLocaleLowerCase()}
+                              className="peer sr-only"
+                              aria-label={option}
+                            />
+                            <Label
+                              htmlFor={option.toLocaleLowerCase()}
+                              className="flex flex-col items-center justify-between rounded-md border-2  bg-neutral p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                              {option}
+                            </Label>
+                          </div>
+                        );
+                      })}
+                    </RadioGroup>
+                  </div>
+                );
+              }
+            )}
             <ToppingList />
 
             <div className="flex items-center justify-between mt-8">
